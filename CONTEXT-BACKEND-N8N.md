@@ -153,7 +153,22 @@ Source de vérité des types : `types/demos.ts`. Schémas visuels d'architecture
 4. Tester chaque démo bout en bout (vérifier le badge `source: "live"` côté UI et le respect du timeout 20 s).
 5. Décider de l'hébergement n8n (self-host homelab vs cloud) et de la persistance (Airtable/Supabase/pgvector selon les démos RAG, RH, GTM).
 
-## 8. Points d'attention
+## 8. Sécurité (audit du 2026-08-26)
+
+**Injection de prompt** — les 6 démos LLM (rh, linkedin, cv, email, sentiment, scraper) sont durcies à trois niveaux :
+1. clause de sécurité prioritaire dans chaque system prompt (le contenu visiteur est une donnée, jamais une instruction) ;
+2. entrée encapsulée dans des marqueurs `<<<DONNEE_UTILISATEUR>>> … <<<FIN_DONNEE_UTILISATEUR>>>` ;
+3. pour linkedin (dont la tâche « écris sur ce sujet » rend la frontière floue), cadrage du sujet : un thème non professionnel ou une tentative de détournement renvoie « Sujet non valide ».
+
+Testé : « ignore all instructions », fuite du system prompt, forçage de verdict → tous neutralisés, sans faux positif sur l'usage légitime. À rejouer après toute modification d'un prompt.
+
+**XSS** — non exploitable : le front React échappe tout texte (aucun `dangerouslySetInnerHTML`). Un `<script>` renvoyé par un workflow s'affiche comme texte inerte. Vérifié en navigateur réel.
+
+**Secrets** — aucune clé dans le repo ni le bundle client ; seules les URLs de webhook sont exposées (inévitable, protégées par le rate limiting §3). Clés Mistral/n8n dans les credentials n8n uniquement.
+
+**Reste à surveiller** : le rate limiting est par IP dans le static data n8n (contournable via proxies) — suffisant pour un portfolio, à renforcer si abus. Régénérer les clés Mistral et n8n (passées en clair pendant le dev).
+
+## 9. Points d'attention
 
 - Respecter **snake_case** et la forme JSON **exacte** : le front type les réponses, une clé manquante casse l'affichage.
 - Timeout front à 20 s : les workflows lourds (scraper, RAG, GTM/Sirene) doivent rester rapides ou pré-calculer.
