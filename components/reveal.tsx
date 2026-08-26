@@ -6,7 +6,6 @@ import type { ReactNode } from "react";
 interface RevealProps {
   children: ReactNode;
   className?: string;
-  /** Délai en secondes avant le début de l'animation. */
   delay?: number;
 }
 

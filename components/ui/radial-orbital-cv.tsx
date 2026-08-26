@@ -12,7 +12,6 @@ interface RadialOrbitalCvProps {
   /** Portrait affiché au centre (public/…). Fallback : initiales. */
   portraitSrc?: string;
   initials?: string;
-  /** Lien de téléchargement du CV PDF. */
   pdfHref?: string;
 }
 
@@ -207,7 +206,6 @@ export default function RadialOrbitalCv({
 
   return (
     <div ref={containerRef} className="flex w-full flex-col items-center">
-      {/* Zone orbitale */}
       <div
         role="presentation"
         className="relative flex w-full items-center justify-center overflow-visible"
@@ -216,7 +214,6 @@ export default function RadialOrbitalCv({
           if (e.target === e.currentTarget) setActiveId(null);
         }}
       >
-        {/* Anneaux d'orbite */}
         <div
           aria-hidden
           className="absolute rounded-full border border-border"
@@ -228,7 +225,6 @@ export default function RadialOrbitalCv({
           style={{ width: radius * 1.35, height: radius * 1.35 }}
         />
 
-        {/* Centre : portrait */}
         <div className="absolute z-[150] flex flex-col items-center">
           <div className="relative flex size-24 items-center justify-center rounded-full border-2 border-background bg-surface shadow-md ring-1 ring-border sm:size-28">
             <span
@@ -256,7 +252,6 @@ export default function RadialOrbitalCv({
           </div>
         </div>
 
-        {/* Nœuds en orbite */}
         {nodes.map((node, index) => {
           const { x, y, zIndex, depth } = nodePosition(index);
           const isActive = node.id === activeId;
@@ -306,14 +301,12 @@ export default function RadialOrbitalCv({
                 </span>
               </button>
 
-              {/* Carte de détail flottante (desktop) */}
               {isActive && !isSmall && detailCard}
             </div>
           );
         })}
       </div>
 
-      {/* Carte de détail (mobile) + téléchargement */}
       {isSmall && activeNode && <div className="mt-2 w-full">{detailCard}</div>}
 
       <p className="mt-6 font-mono text-[11px] text-muted-foreground">

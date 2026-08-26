@@ -15,10 +15,8 @@ export type DemoId =
   | "rgpd"
   | "gtm";
 
-/** États du cycle de vie d'une exécution de démo. */
 export type DemoStatus = "idle" | "loading" | "success" | "error";
 
-/** Provenance d'un résultat affiché. */
 export type DemoSource =
   | "live" // vrai webhook n8n
   | "mock" // NEXT_PUBLIC_USE_MOCKS=true (webhooks pas encore créés)
@@ -28,8 +26,6 @@ export interface DemoResult<T> {
   data: T;
   source: DemoSource;
 }
-
-/* ————— 1. Agent RAG documentaire ————— */
 
 export interface RagRequest {
   question: string;
@@ -45,8 +41,6 @@ export interface RagResponse {
   answer: string;
   sources: RagSource[];
 }
-
-/* ————— 2. Pipeline RH automatisé ————— */
 
 export interface RhRequest {
   full_name: string;
@@ -67,8 +61,6 @@ export interface RhResponse {
   notification: string;
 }
 
-/* ————— 3. Générateur de post LinkedIn ————— */
-
 export interface LinkedinRequest {
   topic: string;
 }
@@ -78,8 +70,6 @@ export interface LinkedinResponse {
   body: string;
   hashtags: string[];
 }
-
-/* ————— 4. Analyseur de CV instantané ————— */
 
 export interface CvRequest {
   resume_text: string;
@@ -94,8 +84,6 @@ export interface CvResponse {
   match_analysis: string;
 }
 
-/* ————— 5. Réponse email pro ————— */
-
 export type EmailTone = "formel" | "cordial" | "direct";
 
 export interface EmailRequest {
@@ -107,8 +95,6 @@ export interface EmailResponse {
   reply: string;
 }
 
-/* ————— 6. Scraper + résumeur d'URL ————— */
-
 export interface ScraperRequest {
   url: string;
 }
@@ -119,8 +105,6 @@ export interface ScraperResponse {
   key_points: string[];
   word_count: number;
 }
-
-/* ————— 7. Sentiment analyzer d'avis ————— */
 
 export interface SentimentRequest {
   reviews: string[];
@@ -141,8 +125,6 @@ export interface SentimentResponse {
   suggested_action: string;
 }
 
-/* ————— 8. Traducteur d'idée en workflow ————— */
-
 export interface WorkflowRequest {
   description: string;
 }
@@ -159,8 +141,6 @@ export interface WorkflowResponse {
   nodes: WorkflowNodePlan[];
   logic: string;
 }
-
-/* ————— 9. Audit RGPD express ————— */
 
 export interface RgpdRequest {
   url: string;
@@ -182,8 +162,6 @@ export interface RgpdResponse {
   recommendations: string[];
 }
 
-/* ————— 10. Moteur de scoring GTM ————— */
-
 export interface GtmRequest {
   sector: string;
   naf_code: string;
@@ -203,8 +181,6 @@ export interface GtmResponse {
   accounts: GtmAccount[];
   methodology: string;
 }
-
-/* ————— Formulaire de contact ————— */
 
 export interface ContactRequest {
   name: string;

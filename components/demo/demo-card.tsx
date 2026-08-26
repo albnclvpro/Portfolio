@@ -27,7 +27,6 @@ interface DemoCardProps {
   error: string | null;
   runsLeft: number;
   onRetry: () => void;
-  /** Formulaire d'input de la démo. */
   form: ReactNode;
   /** Rendu du résultat (fourni uniquement quand status === "success"). */
   result: ReactNode | null;
@@ -65,7 +64,6 @@ export default function DemoCard({
 
   return (
     <article className="overflow-hidden rounded-xl border border-border bg-card">
-      {/* Barre de titre terminal */}
       <button
         type="button"
         aria-expanded={open}
@@ -101,7 +99,6 @@ export default function DemoCard({
         />
       </button>
 
-      {/* En-tête : titre, description, badges */}
       <div className="px-5 pb-5 pt-4 sm:px-6">
         <h3 className="font-heading text-xl font-semibold tracking-tight">
           {title}
@@ -141,7 +138,6 @@ export default function DemoCard({
           className="overflow-hidden"
         >
           <div className="grid border-t border-border md:grid-cols-2">
-            {/* Workflow animé */}
             <div className="relative border-b border-border bg-surface p-4 md:border-b-0 md:border-r">
               <div className="mb-3 flex items-center justify-between">
                 <p className="font-mono text-[11px] text-muted-foreground">
@@ -181,7 +177,6 @@ export default function DemoCard({
               />
             </div>
 
-            {/* Démo interactive */}
             <div className="flex flex-col gap-4 p-5 sm:p-6">
               {form}
 

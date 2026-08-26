@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { DemoStatus } from "@/types/demos";
 import type { WorkflowDefinition, WorkflowNode } from "@/lib/workflows";
 
-/** Durée d'activation d'un nœud pendant le chargement. */
 const STEP_MS = 650;
 
 const VIEW_W = 460;

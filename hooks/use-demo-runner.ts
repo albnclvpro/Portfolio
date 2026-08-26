@@ -44,9 +44,7 @@ export interface DemoRunner<K extends DemoId> {
   result: DemoContracts[K]["response"] | null;
   source: DemoSource | null;
   error: string | null;
-  /** Exécutions restantes dans la session. */
   runsLeft: number;
-  /** True si le bouton doit être inactif (en cours, ou quota atteint). */
   isBlocked: boolean;
   run: (payload: DemoContracts[K]["request"]) => void;
   reset: () => void;

@@ -15,9 +15,7 @@ export interface StackCard {
 
 interface AnimatedCardStackProps {
   cards: StackCard[];
-  /** Libellé du bouton d'action de chaque carte. */
   actionLabel?: string;
-  /** Libellé du bouton qui fait défiler la pile. */
   cycleLabel?: string;
 }
 
