@@ -35,7 +35,7 @@ export default function Home() {
               index="03"
               kicker="demos_live"
               title="Des automatisations que vous pouvez tester, là, maintenant."
-              description="Chaque carte est branchée sur un vrai workflow n8n : votre input part en webhook, le schéma s'anime pendant l'exécution, le résultat revient en JSON. Ouvrez une carte et testez."
+              description="Chaque démo est branchée sur un vrai workflow n8n : votre input part en webhook, le schéma s'anime pendant l'exécution, le résultat revient en JSON. En ouverture, une étude de cas sur le RAG documentaire."
             />
             <DemoList />
           </div>

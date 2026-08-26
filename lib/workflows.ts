@@ -25,22 +25,27 @@ export interface WorkflowDefinition {
   edges: WorkflowEdge[];
 }
 
+/**
+ * Schéma du pipeline RAG, présenté en étude de cas (pas de démo live) :
+ * un RAG pertinent exige un vrai corpus métier, voir components/demo/rag-showcase.tsx.
+ */
+export const ragWorkflow: WorkflowDefinition = {
+  nodes: [
+    { id: "ingest", label: "Ingestion", sublabel: "chunks + overlap", x: 8, y: 50 },
+    { id: "embed", label: "Embedding", sublabel: "OpenAI", x: 33, y: 20 },
+    { id: "search", label: "Recherche", sublabel: "pgvector", x: 58, y: 20 },
+    { id: "llm", label: "Agent IA", sublabel: "Claude", x: 58, y: 80 },
+    { id: "respond", label: "Réponse", sublabel: "+ sources", x: 88, y: 50 },
+  ],
+  edges: [
+    { from: "ingest", to: "embed" },
+    { from: "embed", to: "search" },
+    { from: "search", to: "llm" },
+    { from: "llm", to: "respond" },
+  ],
+};
+
 export const workflows: Record<DemoId, WorkflowDefinition> = {
-  rag: {
-    nodes: [
-      { id: "webhook", label: "Webhook", sublabel: "POST /rag", x: 8, y: 50 },
-      { id: "embed", label: "Embedding", sublabel: "OpenAI", x: 33, y: 20 },
-      { id: "search", label: "Recherche", sublabel: "pgvector", x: 58, y: 20 },
-      { id: "llm", label: "Agent IA", sublabel: "Claude", x: 58, y: 80 },
-      { id: "respond", label: "Réponse", sublabel: "+ sources", x: 88, y: 50 },
-    ],
-    edges: [
-      { from: "webhook", to: "embed" },
-      { from: "embed", to: "search" },
-      { from: "search", to: "llm" },
-      { from: "llm", to: "respond" },
-    ],
-  },
   rh: {
     nodes: [
       { id: "webhook", label: "Webhook", sublabel: "candidature", x: 8, y: 50 },
@@ -125,19 +130,6 @@ export const workflows: Record<DemoId, WorkflowDefinition> = {
       { from: "webhook", to: "split" },
       { from: "split", to: "classify" },
       { from: "classify", to: "respond" },
-    ],
-  },
-  workflow: {
-    nodes: [
-      { id: "webhook", label: "Webhook", sublabel: "POST /workflow", x: 8, y: 50 },
-      { id: "intent", label: "Analyse besoin", sublabel: "Claude", x: 33, y: 50 },
-      { id: "design", label: "Architecture", sublabel: "nœuds n8n", x: 58, y: 50 },
-      { id: "respond", label: "Plan détaillé", sublabel: "JSON", x: 88, y: 50 },
-    ],
-    edges: [
-      { from: "webhook", to: "intent" },
-      { from: "intent", to: "design" },
-      { from: "design", to: "respond" },
     ],
   },
   rgpd: {

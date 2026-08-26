@@ -18,14 +18,12 @@ import { mockResponses } from "@/lib/mock-responses";
  *
  * | Démo       | Env var                          | Payload (requête)                        | Réponse (JSON)                                                        |
  * |------------|----------------------------------|------------------------------------------|-----------------------------------------------------------------------|
- * | rag        | NEXT_PUBLIC_N8N_WEBHOOK_RAG      | { question }                             | { answer, sources: [{ title, excerpt, score }] }                      |
  * | rh         | NEXT_PUBLIC_N8N_WEBHOOK_RH       | { full_name, position, resume_summary }  | { analysis, fit_score, crm_record: {…}, notification }               |
  * | linkedin   | NEXT_PUBLIC_N8N_WEBHOOK_LINKEDIN | { topic }                                | { hook, body, hashtags: string[] }                                    |
  * | cv         | NEXT_PUBLIC_N8N_WEBHOOK_CV       | { resume_text, target_position }         | { score, detected_skills[], strengths[], gaps[], match_analysis }    |
  * | email      | NEXT_PUBLIC_N8N_WEBHOOK_EMAIL    | { email_text, tone }                     | { reply }                                                             |
  * | scraper    | NEXT_PUBLIC_N8N_WEBHOOK_SCRAPER  | { url }                                  | { title, summary, key_points[], word_count }                          |
  * | sentiment  | NEXT_PUBLIC_N8N_WEBHOOK_SENTIMENT| { reviews: string[] }                    | { results: [{…}], overall_sentiment, main_themes[], suggested_action }|
- * | workflow   | NEXT_PUBLIC_N8N_WEBHOOK_WORKFLOW | { description }                          | { workflow_name, trigger, nodes: [{…}], logic }                       |
  * | rgpd       | NEXT_PUBLIC_N8N_WEBHOOK_RGPD     | { url }                                  | { url, checks: [{…}], trackers_detected[], global_score, recommendations[] } |
  * | gtm        | NEXT_PUBLIC_N8N_WEBHOOK_GTM      | { sector, naf_code, keyword }            | { accounts: [{…}], methodology }                                      |
  * | contact    | NEXT_PUBLIC_N8N_WEBHOOK_CONTACT  | { name, email, message }                 | { ok: true }                                                          |
@@ -47,14 +45,12 @@ const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
  * référencées statiquement (pas de process.env[clé_dynamique]).
  */
 const webhookUrls: Record<DemoId, string | undefined> = {
-  rag: process.env.NEXT_PUBLIC_N8N_WEBHOOK_RAG,
   rh: process.env.NEXT_PUBLIC_N8N_WEBHOOK_RH,
   linkedin: process.env.NEXT_PUBLIC_N8N_WEBHOOK_LINKEDIN,
   cv: process.env.NEXT_PUBLIC_N8N_WEBHOOK_CV,
   email: process.env.NEXT_PUBLIC_N8N_WEBHOOK_EMAIL,
   scraper: process.env.NEXT_PUBLIC_N8N_WEBHOOK_SCRAPER,
   sentiment: process.env.NEXT_PUBLIC_N8N_WEBHOOK_SENTIMENT,
-  workflow: process.env.NEXT_PUBLIC_N8N_WEBHOOK_WORKFLOW,
   rgpd: process.env.NEXT_PUBLIC_N8N_WEBHOOK_RGPD,
   gtm: process.env.NEXT_PUBLIC_N8N_WEBHOOK_GTM,
 };

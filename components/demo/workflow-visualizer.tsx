@@ -110,8 +110,10 @@ export default function WorkflowVisualizer({
       aria-labelledby={titleId}
       className="h-auto w-full"
     >
+      {/* Enfant texte unique obligatoire : avec plusieurs nœuds texte, le
+          <title> SVG produit un mismatch d'hydratation (React 19 / SSR). */}
       <title id={titleId}>
-        Schéma du workflow n8n : {workflow.nodes.map((n) => n.label).join(" → ")}
+        {`Schéma du workflow n8n : ${workflow.nodes.map((n) => n.label).join(" → ")}`}
       </title>
 
       {workflow.edges.map((edge) => {

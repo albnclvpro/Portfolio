@@ -9,24 +9,6 @@ import type { DemoContracts, DemoId } from "@/types/demos";
 export const mockResponses: {
   [K in DemoId]: DemoContracts[K]["response"];
 } = {
-  rag: {
-    answer:
-      "D'après le corpus indexé, la mise en place d'un RAG fiable repose sur trois piliers : un découpage des documents en chunks de 500 à 1 000 tokens avec chevauchement, une base vectorielle (ici Supabase + pgvector) interrogée en similarité cosinus, et une consigne stricte donnée au modèle de ne répondre qu'à partir des extraits fournis. Le pipeline documenté ici ajoute une étape de re-ranking qui améliore la précision d'environ 20 % sur les questions ambiguës.",
-    sources: [
-      {
-        title: "Guide interne — Architecture RAG v2.pdf",
-        excerpt:
-          "Le chevauchement de 15 % entre chunks évite de couper les idées en deux…",
-        score: 0.91,
-      },
-      {
-        title: "Notes de veille — Re-ranking et évaluation.md",
-        excerpt:
-          "Sur notre benchmark interne, le re-ranking par cross-encoder fait passer la précision de 71 à 86 %…",
-        score: 0.84,
-      },
-    ],
-  },
   rh: {
     analysis:
       "Profil solide pour le poste : 4 ans d'expérience en support IT dont 2 en scripting Python, appétence claire pour l'automatisation. Points d'attention : pas d'expérience n8n mentionnée, mais la maîtrise d'API REST et de Zapier suggère une montée en compétence rapide. Recommandation : entretien technique de 45 min axé sur un cas pratique d'automatisation.",
@@ -107,39 +89,6 @@ export const mockResponses: {
     main_themes: ["SAV", "livraison", "documentation"],
     suggested_action:
       "Priorité : traiter le backlog SAV (thème négatif récurrent). Action rapide : réponse type sous 24 h + FAQ notice illustrée, puis relancer les clients mécontents pour mise à jour de leur avis.",
-  },
-  workflow: {
-    workflow_name: "veille-concurrentielle-hebdo",
-    trigger: "Cron — tous les lundis à 8 h",
-    nodes: [
-      {
-        name: "Schedule Trigger",
-        node_type: "n8n-nodes-base.scheduleTrigger",
-        purpose: "Déclenche la veille chaque lundi matin",
-      },
-      {
-        name: "HTTP Request",
-        node_type: "n8n-nodes-base.httpRequest",
-        purpose: "Récupère les pages tarifs des 5 concurrents suivis",
-      },
-      {
-        name: "HTML Extract",
-        node_type: "n8n-nodes-base.html",
-        purpose: "Extrait prix et offres du HTML brut",
-      },
-      {
-        name: "AI Agent",
-        node_type: "@n8n/n8n-nodes-langchain.agent",
-        purpose: "Compare avec la semaine précédente et rédige la synthèse",
-      },
-      {
-        name: "Slack",
-        node_type: "n8n-nodes-base.slack",
-        purpose: "Poste la synthèse dans #veille-marché",
-      },
-    ],
-    logic:
-      "Exécution séquentielle avec une boucle sur les 5 concurrents. Les données extraites sont comparées à l'exécution précédente (stockée dans un Data Store n8n) ; l'agent IA ne génère une alerte détaillée que si un changement de prix ou d'offre est détecté, sinon un simple accusé hebdomadaire.",
   },
   rgpd: {
     url: "https://exemple-audit.fr",

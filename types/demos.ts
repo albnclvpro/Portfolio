@@ -1,17 +1,15 @@
 /**
- * Types des 10 démos live + formulaire de contact.
+ * Types des 8 démos live + formulaire de contact.
  * Convention : payloads et réponses en snake_case (côté n8n).
  */
 
 export type DemoId =
-  | "rag"
   | "rh"
   | "linkedin"
   | "cv"
   | "email"
   | "scraper"
   | "sentiment"
-  | "workflow"
   | "rgpd"
   | "gtm";
 
@@ -25,21 +23,6 @@ export type DemoSource =
 export interface DemoResult<T> {
   data: T;
   source: DemoSource;
-}
-
-export interface RagRequest {
-  question: string;
-}
-
-export interface RagSource {
-  title: string;
-  excerpt: string;
-  score: number;
-}
-
-export interface RagResponse {
-  answer: string;
-  sources: RagSource[];
 }
 
 export interface RhRequest {
@@ -125,23 +108,6 @@ export interface SentimentResponse {
   suggested_action: string;
 }
 
-export interface WorkflowRequest {
-  description: string;
-}
-
-export interface WorkflowNodePlan {
-  name: string;
-  node_type: string;
-  purpose: string;
-}
-
-export interface WorkflowResponse {
-  workflow_name: string;
-  trigger: string;
-  nodes: WorkflowNodePlan[];
-  logic: string;
-}
-
 export interface RgpdRequest {
   url: string;
 }
@@ -194,14 +160,12 @@ export interface ContactResponse {
 
 /** Mapping DemoId → types requête/réponse, pour un service typé de bout en bout. */
 export interface DemoContracts {
-  rag: { request: RagRequest; response: RagResponse };
   rh: { request: RhRequest; response: RhResponse };
   linkedin: { request: LinkedinRequest; response: LinkedinResponse };
   cv: { request: CvRequest; response: CvResponse };
   email: { request: EmailRequest; response: EmailResponse };
   scraper: { request: ScraperRequest; response: ScraperResponse };
   sentiment: { request: SentimentRequest; response: SentimentResponse };
-  workflow: { request: WorkflowRequest; response: WorkflowResponse };
   rgpd: { request: RgpdRequest; response: RgpdResponse };
   gtm: { request: GtmRequest; response: GtmResponse };
 }
