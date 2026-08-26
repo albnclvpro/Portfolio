@@ -1,6 +1,8 @@
 # Portfolio Alban Calvo — Brief technique pour la phase backend / n8n
 
-> Document de passation. Le **front est terminé** ; il reste à créer les **11 workflows n8n** (10 démos + contact) sur lesquels il est déjà câblé. Ce fichier contient tout le contexte nécessaire pour reprendre le projet dans une nouvelle discussion, sans avoir à relire le code.
+> Document de passation. Le **front est terminé** et les **9 workflows n8n** (8 démos + contact) existent en **stubs actifs** sur l'instance n8n Cloud de formation (`oreegami.app.n8n.cloud`) : webhook POST → réponse JSON statique conforme au contrat. Le site tourne en `NEXT_PUBLIC_USE_MOCKS=false`, source `live` vérifiée bout en bout. Prochaines étapes : remplacer l'intérieur des stubs par la vraie logique (IA, scraping, Sirene…), puis migrer sur le n8n du homelab quand il sera de retour.
+>
+> Historique : la démo RAG est devenue une étude de cas statique (`components/demo/rag-showcase.tsx`) et la démo « traducteur d'idée en workflow » a été supprimée.
 
 ---
 
@@ -41,30 +43,25 @@ Anti-abus (déjà géré côté front, `hooks/use-demo-runner.ts`) : bouton dés
 ## 4. Variables d'environnement (`.env.local`)
 
 ```
-NEXT_PUBLIC_USE_MOCKS=true          # passer à false une fois les workflows prêts
-NEXT_PUBLIC_N8N_WEBHOOK_RAG=
+NEXT_PUBLIC_USE_MOCKS=false         # les webhooks stubs sont actifs
 NEXT_PUBLIC_N8N_WEBHOOK_RH=
 NEXT_PUBLIC_N8N_WEBHOOK_LINKEDIN=
 NEXT_PUBLIC_N8N_WEBHOOK_CV=
 NEXT_PUBLIC_N8N_WEBHOOK_EMAIL=
 NEXT_PUBLIC_N8N_WEBHOOK_SCRAPER=
 NEXT_PUBLIC_N8N_WEBHOOK_SENTIMENT=
-NEXT_PUBLIC_N8N_WEBHOOK_WORKFLOW=
 NEXT_PUBLIC_N8N_WEBHOOK_RGPD=
 NEXT_PUBLIC_N8N_WEBHOOK_GTM=
 NEXT_PUBLIC_N8N_WEBHOOK_CONTACT=
 ```
 
+Les URLs réelles sont dans le `.env.local` local (non versionné) : une par démo, format `https://oreegami.app.n8n.cloud/webhook/pf-<demo>-<hex>`. Les workflows sont nommés `PORTFOLIO — <demo> (stub)` dans l'instance.
+
 ⚠️ Les `NEXT_PUBLIC_*` sont **inlinées au build** : elles sont référencées statiquement dans `services/n8n.ts` (pas d'accès dynamique `process.env[clé]`). Un rebuild est nécessaire après modification. Ces URLs étant exposées au client, sécuriser côté n8n (webhook path non devinable, éventuellement header/token de vérification, rate limiting).
 
-## 5. Contrats des 11 endpoints
+## 5. Contrats des 9 endpoints
 
 Source de vérité des types : `types/demos.ts`. Schémas visuels d'architecture (indicatifs, affichés à l'écran) : `lib/workflows.ts`.
-
-### 5.1 `rag` — Agent RAG documentaire
-- **Requête** : `{ question: string }`
-- **Réponse** : `{ answer: string, sources: [{ title: string, excerpt: string, score: number }] }`
-- **Archi suggérée** : Webhook → Embedding (OpenAI) → Recherche vectorielle (pgvector) → Agent IA (Claude) → Réponse + sources
 
 ### 5.2 `rh` — Pipeline RH automatisé
 - **Requête** : `{ full_name: string, position: string, resume_summary: string }`
@@ -95,11 +92,6 @@ Source de vérité des types : `types/demos.ts`. Schémas visuels d'architecture
 - **Requête** : `{ reviews: string[] }`
 - **Réponse** : `{ results: [{ review_excerpt: string, sentiment: "positif"|"négatif"|"mitigé", themes: string[] }], overall_sentiment, main_themes: string[], suggested_action: string }`
 - **Archi** : Webhook → Split (1 avis/item) → Classification (Claude) → Agrégation thèmes + action
-
-### 5.8 `workflow` — Traducteur d'idée en workflow
-- **Requête** : `{ description: string }`
-- **Réponse** : `{ workflow_name: string, trigger: string, nodes: [{ name, node_type, purpose }], logic: string }`
-- **Archi** : Webhook → Analyse du besoin (Claude) → Architecture (nœuds n8n) → Plan détaillé JSON
 
 ### 5.9 `rgpd` — Audit RGPD express
 - **Requête** : `{ url: string }`
@@ -133,7 +125,7 @@ Source de vérité des types : `types/demos.ts`. Schémas visuels d'architecture
 
 ## 7. Reste à faire (backend)
 
-1. Créer les 11 workflows n8n (n8n ≥ 2.22.5) avec un nœud Webhook (POST) + Respond to Webhook renvoyant le JSON exact du §5.
+1. ~~Créer les 9 workflows n8n~~ Fait (stubs actifs). Remplacer l'intérieur de chaque stub par la vraie logique (IA, scraping, Sirene…).
 2. Sécuriser les webhooks (path non devinable, token de vérification, rate limiting) — les URLs sont exposées côté client.
 3. Renseigner les URLs dans `.env.local`, passer `NEXT_PUBLIC_USE_MOCKS=false`, rebuild.
 4. Tester chaque démo bout en bout (vérifier le badge `source: "live"` côté UI et le respect du timeout 20 s).
