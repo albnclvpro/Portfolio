@@ -1,6 +1,12 @@
 # Portfolio Alban Calvo — Brief technique pour la phase backend / n8n
 
-> Document de passation. Le **front est terminé** et les **9 workflows n8n** (8 démos + contact) existent en **stubs actifs** sur l'instance n8n Cloud de formation (`oreegami.app.n8n.cloud`) : webhook POST → réponse JSON statique conforme au contrat. Le site tourne en `NEXT_PUBLIC_USE_MOCKS=false`, source `live` vérifiée bout en bout. Prochaines étapes : remplacer l'intérieur des stubs par la vraie logique (IA, scraping, Sirene…), puis migrer sur le n8n du homelab quand il sera de retour.
+> Document de passation. Le **front est terminé** et les **9 workflows n8n** (8 démos + contact) sont actifs sur l'instance n8n Cloud de formation (`oreegami.app.n8n.cloud`). Le site tourne en `NEXT_PUBLIC_USE_MOCKS=false`, source `live` vérifiée bout en bout.
+>
+> **État des workflows** (nommés `PORTFOLIO — <demo>` dans l'instance) :
+> - ✅ **Vraie logique** : `contact` (Gmail, envoi réel à albn.clv.pro@gmail.com, reply-to visiteur), `linkedin`, `rh`, `cv`, `email`, `sentiment` (Mistral `mistral-small-latest`, credential « Mistral — portfolio Alban », clé personnelle d'Alban → survivra à la migration homelab).
+> - 🔲 **Encore en stub** (JSON statique) : `scraper`, `rgpd`, `gtm` — nécessitent scraping HTTP / API Sirene en plus du LLM.
+>
+> Pattern des workflows LLM : Webhook (POST, CORS ouvert) → HTTP Request vers l'API chat completions (response_format json_object, timeout 17 s) → Code (parse + validation stricte du contrat, throw si invalide → le front bascule en mock-fallback avec badge) → Respond to Webhook. Prochaines étapes : implémenter les 3 stubs restants, puis migrer sur le n8n du homelab quand il sera de retour.
 >
 > Historique : la démo RAG est devenue une étude de cas statique (`components/demo/rag-showcase.tsx`) et la démo « traducteur d'idée en workflow » a été supprimée.
 
