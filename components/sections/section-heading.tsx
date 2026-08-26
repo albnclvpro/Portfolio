@@ -24,7 +24,8 @@ interface SectionHeadingProps {
  * En-tête de section « nœud n8n » : le titre est encadré comme un nœud,
  * un connecteur vertical (aligné entre toutes les sections) se remplit en
  * vert au fil du scroll, puis le nœud « s'exécute » — bordure verte et
- * check qui pop, comme dans le canvas n8n. L'état exécuté est persistant.
+ * check qui pop, comme dans le canvas n8n. L'état suit la position de
+ * scroll dans les deux sens : en remontant, le nœud se dé-exécute.
  */
 export default function SectionHeading({
   index,
@@ -37,15 +38,16 @@ export default function SectionHeading({
   const reduceMotion = useReducedMotion();
   const [executed, setExecuted] = useState(false);
 
-  // Le connecteur entrant se remplit pendant que le nœud approche du
-  // centre de l'écran ; à 100 %, le nœud passe en « exécuté » (définitif).
+  // Le connecteur entrant se remplit pendant que le nœud approche du centre
+  // de l'écran ; à 100 %, le nœud passe en « exécuté ». L'état est dérivé de
+  // la progression, donc réversible : en remontant, tout repasse au gris.
   const { scrollYProgress } = useScroll({
     target: nodeRef,
     offset: ["start 0.95", "start 0.6"],
   });
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (v >= 0.999 && !executed) setExecuted(true);
+    setExecuted(v >= 0.999);
   });
 
   const portClass = executed
@@ -99,18 +101,21 @@ export default function SectionHeading({
           {title}
         </h2>
 
-        {/* Check d'exécution, façon n8n */}
-        {executed && (
-          <motion.span
-            initial={reduceMotion ? false : { scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 500, damping: 18 }}
-            className="absolute -bottom-2.5 -right-2.5 flex size-6 items-center justify-center rounded-full bg-success text-white shadow-sm"
-          >
-            <Check aria-hidden className="size-3.5" strokeWidth={3.5} />
-            <span className="sr-only">Section consultée</span>
-          </motion.span>
-        )}
+        {/* Check d'exécution, façon n8n. Toujours monté et piloté par l'échelle :
+            il rétrécit quand on remonte, là où un démontage couperait net. */}
+        <motion.span
+          aria-hidden
+          initial={false}
+          animate={{ scale: executed ? 1 : 0 }}
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : { type: "spring", stiffness: 500, damping: 18 }
+          }
+          className="absolute -bottom-2.5 -right-2.5 flex size-6 items-center justify-center rounded-full bg-success text-white shadow-sm"
+        >
+          <Check className="size-3.5" strokeWidth={3.5} />
+        </motion.span>
       </div>
 
       {/* Connecteur sortant : amorce vers la suite du workflow */}

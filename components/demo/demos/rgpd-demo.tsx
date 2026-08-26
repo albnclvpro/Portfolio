@@ -34,7 +34,7 @@ export default function RgpdDemo() {
       demoId="rgpd"
       title="Audit RGPD express"
       description="Un premier diagnostic de conformité en moins d'une minute : traceurs présents dans le code source, solution de gestion du consentement, liens mentions légales et politique de confidentialité. Le réflexe avant toute mise en production."
-      badges={["n8n", "scraping", "RGPD", "CNIL"]}
+      badges={["n8n", "scraping", "Mistral", "RGPD", "CNIL"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}
