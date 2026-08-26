@@ -68,8 +68,9 @@ export default function Stack() {
           <ShieldCheck aria-hidden className="mt-0.5 size-4 shrink-0 text-primary" />
           Chaque automatisation manipulant des données personnelles est conçue
           en conformité RGPD (minimisation, registre, durées de conservation) et
-          évaluée au regard de l&apos;EU AI Act — y compris les démos de ce site,
-          qui ne stockent aucun input visiteur.
+          évaluée au regard de l&apos;EU AI Act — y compris les démos de ce site :
+          aucune base de données, aucun traceur, et les entrées servent
+          uniquement à m&apos;alerter qu&apos;une démo a été testée.
         </p>
       </Reveal>
     </div>

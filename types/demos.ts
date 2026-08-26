@@ -152,6 +152,8 @@ export interface ContactRequest {
   name: string;
   email: string;
   message: string;
+  /** Profil LinkedIn, facultatif : absent du payload si non renseigné. */
+  linkedin?: string;
 }
 
 export interface ContactResponse {

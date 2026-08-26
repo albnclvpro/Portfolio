@@ -231,7 +231,16 @@ export default function DemoCard({
                     votre compréhension.
                   </p>
                 )}
+
               </div>
+
+              {/* Hors de la région aria-live : ne doit pas être relu à chaque
+                  changement d'état de la démo. */}
+              <p className="border-t border-border pt-3 font-mono text-[10px] leading-relaxed text-muted-foreground">
+                Ce que vous saisissez part vers un workflow n8n et m&apos;est
+                notifié par email — évitez donc les données personnelles ou
+                confidentielles.
+              </p>
             </div>
           </div>
         </motion.div>

@@ -41,6 +41,7 @@ export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [linkedin, setLinkedin] = useState("");
   // Honeypot anti-spam : rempli uniquement par les bots
   const [company, setCompany] = useState("");
 
@@ -55,6 +56,7 @@ export default function Contact() {
         name: name.trim(),
         email: email.trim(),
         message: message.trim(),
+        ...(linkedin.trim() ? { linkedin: linkedin.trim() } : {}),
       });
       setStatus(ok ? "sent" : "error");
     } catch {
@@ -150,6 +152,24 @@ export default function Contact() {
                     required
                   />
                 </div>
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="contact-linkedin">
+                  Profil LinkedIn{" "}
+                  <span className="font-mono text-[11px] text-muted-foreground">
+                    (facultatif)
+                  </span>
+                </Label>
+                <Input
+                  id="contact-linkedin"
+                  type="url"
+                  value={linkedin}
+                  onChange={(e) => setLinkedin(e.target.value)}
+                  placeholder="https://www.linkedin.com/in/…"
+                  autoComplete="url"
+                  maxLength={200}
+                />
               </div>
 
               <div className="flex flex-col gap-2">

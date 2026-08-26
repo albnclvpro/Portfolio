@@ -206,9 +206,12 @@ export default function RadialOrbitalCv({
 
   return (
     <div ref={containerRef} className="flex w-full flex-col items-center">
+      {/* overflow-x clippé : avant que la largeur ne soit mesurée côté client,
+          le rayon retombe sur sa valeur desktop et l'orbite déborde ~1,5 s sur
+          mobile. L'axe vertical reste visible pour la carte de détail. */}
       <div
         role="presentation"
-        className="relative flex w-full items-center justify-center overflow-visible"
+        className="relative flex w-full items-center justify-center overflow-x-clip overflow-y-visible"
         style={{ height: radius * 2 + 140 }}
         onClick={(e) => {
           if (e.target === e.currentTarget) setActiveId(null);
