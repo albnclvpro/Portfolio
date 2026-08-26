@@ -6,6 +6,7 @@ import Stack from "@/components/sections/stack";
 import Contact from "@/components/sections/contact";
 import SectionHeading from "@/components/sections/section-heading";
 import DemoList from "@/components/demo/demo-list";
+import SiteFooter from "@/components/site-footer";
 
 export default function Home() {
   return (
@@ -50,15 +51,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-6 py-8 font-mono text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Alban Calvo</p>
-          <p>
-            Construit avec Next.js, Tailwind et n8n —{" "}
-            <span className="text-primary-ink">vibe coded</span>, vérifié à la main.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

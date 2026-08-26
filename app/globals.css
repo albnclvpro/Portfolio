@@ -124,3 +124,34 @@
     color: #ffffff;
   }
 }
+
+/* Prose des pages légales (mentions légales, confidentialité). */
+.legal-prose section {
+  scroll-margin-top: 5rem;
+}
+.legal-prose h2 {
+  @apply font-heading text-lg font-semibold tracking-tight;
+}
+.legal-prose p,
+.legal-prose li {
+  @apply text-sm leading-relaxed text-muted-foreground;
+}
+.legal-prose p {
+  @apply mt-3;
+}
+.legal-prose ul {
+  @apply mt-3 flex flex-col gap-2 pl-1;
+}
+.legal-prose li {
+  @apply flex items-start gap-2.5;
+}
+.legal-prose li::before {
+  content: "";
+  @apply mt-2 size-1 shrink-0 rounded-full bg-primary;
+}
+.legal-prose a {
+  @apply text-primary-ink underline underline-offset-2 transition-colors hover:text-primary;
+}
+.legal-prose strong {
+  @apply font-medium text-foreground;
+}
