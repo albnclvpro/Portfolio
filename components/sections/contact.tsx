@@ -67,6 +67,7 @@ export default function Contact() {
       <SectionHeading
         index="05"
         kicker="contact"
+        terminal
         title="Un projet d'automatisation en tête ?"
         description="Recruteur, fondateur ou équipe débordée par les tâches répétitives : parlons-en. Réponse sous 24 h."
       />
