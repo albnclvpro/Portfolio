@@ -36,7 +36,7 @@ export default function SentimentDemo() {
       demoId="sentiment"
       title="Sentiment analyzer d'avis"
       description="Des dizaines d'avis clients, une lecture en 10 secondes. Classification par sentiment, extraction des thèmes récurrents et action prioritaire suggérée."
-      badges={["n8n", "Claude", "classification", "NLP"]}
+      badges={["n8n", "Mistral", "classification", "NLP"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

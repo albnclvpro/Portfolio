@@ -22,7 +22,7 @@ export default function LinkedinDemo() {
       demoId="linkedin"
       title="Générateur de post LinkedIn"
       description="Une idée en une phrase, un post prêt à publier : hook, corps structuré et hashtags. Le workflow applique une méthode copywriting éprouvée au lieu de laisser le modèle improviser."
-      badges={["n8n", "Claude", "Webhook", "prompt engineering"]}
+      badges={["n8n", "Mistral", "Webhook", "prompt engineering"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

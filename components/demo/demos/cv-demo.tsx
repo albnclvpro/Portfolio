@@ -31,7 +31,7 @@ export default function CvDemo() {
       demoId="cv"
       title="Analyseur de CV instantané"
       description="Un retour objectif sur un CV en 20 secondes plutôt qu'une relecture subjective. Scoring, compétences détectées et matching avec le poste visé — utile des deux côtés de la table."
-      badges={["n8n", "Claude", "parsing", "scoring"]}
+      badges={["n8n", "Mistral", "parsing", "scoring"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

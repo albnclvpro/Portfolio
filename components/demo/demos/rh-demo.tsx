@@ -32,8 +32,8 @@ export default function RhDemo() {
     <DemoCard
       demoId="rh"
       title="Pipeline RH automatisé"
-      description="Trier des candidatures à la main ne passe pas à l'échelle. Ce pipeline analyse chaque candidature, crée la fiche CRM et notifie l'équipe — l'humain n'intervient que pour décider."
-      badges={["n8n", "Claude", "Airtable", "Slack"]}
+      description="Trier des candidatures à la main ne passe pas à l'échelle. Le workflow analyse le profil, score la compatibilité avec le poste et prépare la fiche CRM et le message de notification — prêts à être poussés vers Airtable, Slack ou tout autre outil."
+      badges={["n8n", "Mistral", "scoring", "sortie structurée"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

@@ -39,7 +39,7 @@ export default function EmailDemo() {
       demoId="email"
       title="Réponse email pro"
       description="Répondre vite et bien aux emails délicats, sans y passer 20 minutes. Collez le message reçu, choisissez le ton, le workflow rédige une réponse structurée prête à ajuster."
-      badges={["n8n", "Claude", "ton paramétrable"]}
+      badges={["n8n", "Mistral", "ton paramétrable"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

@@ -22,7 +22,7 @@ export default function ScraperDemo() {
       demoId="scraper"
       title="Scraper + résumeur d'URL"
       description="Une URL entre, une synthèse exploitable sort. Le workflow scrape la page, nettoie le HTML et produit un résumé structuré avec les points clés — la base de toute veille automatisée."
-      badges={["n8n", "HTTP Request", "Claude", "scraping"]}
+      badges={["n8n", "HTTP Request", "Mistral", "scraping"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}

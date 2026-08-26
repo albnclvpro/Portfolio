@@ -28,7 +28,7 @@ export default function GtmDemo() {
       demoId="gtm"
       title="Moteur de scoring GTM"
       description="Prioriser sa prospection sur données publiques plutôt qu'à l'intuition. Le moteur croise les données Insee/Sirene et ressort les 5 comptes les plus prometteurs, scorés et justifiés."
-      badges={["n8n", "API Sirene", "Claude", "scoring"]}
+      badges={["n8n", "data.gouv", "Mistral", "scoring"]}
       status={runner.status}
       source={runner.source}
       error={runner.error}
