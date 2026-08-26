@@ -48,7 +48,12 @@ Le **formulaire de contact** (`sendContact`) est différent : **pas de fallback*
 - Chaque workflow doit répondre en **< 20 s**
 - La réponse doit être le JSON exact attendu (voir §5) — le nœud « Respond to Webhook » renvoie l'objet à plat.
 
-Anti-abus (déjà géré côté front, `hooks/use-demo-runner.ts`) : bouton désactivé pendant l'exécution, debounce 400 ms, **3 exécutions max par démo et par session** (sessionStorage). Rien à prévoir côté n8n pour ça, mais garder en tête un throttling/quota serveur si exposition publique.
+Anti-abus, deux niveaux :
+
+1. **Front** (`hooks/use-demo-runner.ts`) : bouton désactivé pendant l'exécution, debounce 400 ms, **3 exécutions max par démo et par session** (sessionStorage). Confort d'usage uniquement — contournable, puisque côté client.
+2. **n8n** (nœud `Guard` + aiguillage `Quota ?` en tête de chaque workflow) : **10 exécutions/heure par IP** (5 pour `contact`), fenêtre glissante stockée dans `$getWorkflowStaticData('global')`. Au-delà, réponse **HTTP 429** `{ error: "rate_limited" }` → le front bascule sur la réponse de démonstration avec le badge `mock-fallback` (et le formulaire de contact affiche une vraie erreur, sans fallback).
+
+⚠️ Le `Guard` ne doit **jamais** lever d'erreur pour bloquer : un `throw` dans un workflow en `responseMode: responseNode` fait répondre n8n **200 avec un corps vide**, ce qui est indiscernable d'un bug. D'où l'aiguillage explicite vers un nœud « Respond » en 429.
 
 ## 4. Variables d'environnement (`.env.local`)
 
