@@ -21,7 +21,7 @@ const verdictConfig: Record<
 
 export default function RgpdDemo() {
   const runner = useDemoRunner("rgpd");
-  const [url, setUrl] = useState("https://exemple-audit.fr");
+  const [url, setUrl] = useState("https://n8n.io");
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();

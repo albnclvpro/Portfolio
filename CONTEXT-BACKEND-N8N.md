@@ -3,10 +3,14 @@
 > Document de passation. Le **front est terminé** et les **9 workflows n8n** (8 démos + contact) sont actifs sur l'instance n8n Cloud de formation (`oreegami.app.n8n.cloud`). Le site tourne en `NEXT_PUBLIC_USE_MOCKS=false`, source `live` vérifiée bout en bout.
 >
 > **État des workflows** (nommés `PORTFOLIO — <demo>` dans l'instance) :
-> - ✅ **Vraie logique** : `contact` (Gmail, envoi réel à albn.clv.pro@gmail.com, reply-to visiteur), `linkedin`, `rh`, `cv`, `email`, `sentiment` (Mistral `mistral-small-latest`, credential « Mistral — portfolio Alban », clé personnelle d'Alban → survivra à la migration homelab).
-> - 🔲 **Encore en stub** (JSON statique) : `scraper`, `rgpd`, `gtm` — nécessitent scraping HTTP / API Sirene en plus du LLM.
+> - ✅ **Les 9 workflows sont en vraie logique** :
+>   - `contact` : Gmail, envoi réel à albn.clv.pro@gmail.com, reply-to visiteur.
+>   - `linkedin`, `rh`, `cv`, `email`, `sentiment` : Mistral `mistral-small-latest` (credential « Mistral — portfolio Alban », clé personnelle d'Alban → survivra à la migration homelab).
+>   - `scraper` : fetch de l'URL → nettoyage HTML→texte + comptage mots (Code) → résumé Mistral.
+>   - `rgpd` : fetch → détection déterministe (trackers, CMP, liens légaux) → verdicts et détails calculés par règles (pas par le LLM) → Mistral rédige uniquement les recommandations.
+>   - `gtm` : API publique recherche-entreprises.api.gouv.fr (filtre NAF + effectif 10-499) → scoring déterministe top 5 → Mistral rédige les raisons ; méthodologie générée par code.
 >
-> Pattern des workflows LLM : Webhook (POST, CORS ouvert) → HTTP Request vers l'API chat completions (response_format json_object, timeout 17 s) → Code (parse + validation stricte du contrat, throw si invalide → le front bascule en mock-fallback avec badge) → Respond to Webhook. Prochaines étapes : implémenter les 3 stubs restants, puis migrer sur le n8n du homelab quand il sera de retour.
+> Pattern commun : Webhook (POST, CORS ouvert) → [fetch/API externe →] Code(s) déterministes → HTTP Request LLM (response_format json_object, timeout 15-17 s) → Code (parse + validation stricte du contrat, throw si invalide → le front bascule en mock-fallback avec badge) → Respond to Webhook. Principe : tout ce qui peut être calculé par des règles l'est (verdicts RGPD, scores GTM), le LLM ne fait que l'analyse et la rédaction. Prochaine étape : migrer sur le n8n du homelab quand il sera de retour (recréer le credential Mistral, réimporter les workflows, changer les URLs dans .env.local, rebuild).
 >
 > Historique : la démo RAG est devenue une étude de cas statique (`components/demo/rag-showcase.tsx`) et la démo « traducteur d'idée en workflow » a été supprimée.
 
