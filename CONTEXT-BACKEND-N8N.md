@@ -10,7 +10,7 @@
 
 Portfolio one-page qui met en scène des automatisations IA. Chaque « démo » de la page est une carte interactive branchée sur un **vrai webhook n8n** : l'input du visiteur part en POST, un schéma de workflow s'anime pendant l'exécution, puis le résultat JSON s'affiche. Tant qu'un webhook n'existe pas, le front sert une **réponse mockée** — donc le site fonctionne déjà à 100 % sans backend.
 
-**Objectif de la phase suivante :** implémenter les 11 workflows n8n en respectant à la lettre les contrats d'entrée/sortie définis ci-dessous, puis renseigner les URLs dans `.env.local` et passer `NEXT_PUBLIC_USE_MOCKS=false`.
+**Objectif de la phase suivante :** remplacer l'intérieur des 9 stubs par la vraie logique métier, en respectant à la lettre les contrats d'entrée/sortie définis ci-dessous.
 
 ## 2. Stack
 
@@ -117,7 +117,8 @@ Source de vérité des types : `types/demos.ts`. Schémas visuels d'architecture
 | Réponses mockées (forme exacte attendue en sortie n8n) | `lib/mock-responses.ts` |
 | Schémas visuels des workflows (nœuds/edges par démo) | `lib/workflows.ts` |
 | Machine à états + anti-abus | `hooks/use-demo-runner.ts` |
-| Composants des 10 démos | `components/demo/demos/*.tsx` |
+| Composants des 8 démos live | `components/demo/demos/*.tsx` |
+| Étude de cas RAG (vitrine statique) | `components/demo/rag-showcase.tsx` |
 | Contenu éditorial / projets vitrine | `lib/content.ts`, `lib/cv-data.ts` |
 | Page principale | `app/page.tsx` |
 
