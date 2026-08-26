@@ -10,6 +10,12 @@
 >   - `rgpd` : fetch → détection déterministe (trackers, CMP, liens légaux) → verdicts et détails calculés par règles (pas par le LLM) → Mistral rédige uniquement les recommandations.
 >   - `gtm` : API publique recherche-entreprises.api.gouv.fr (filtre NAF + effectif 10-499) → scoring déterministe top 5 → Mistral rédige les raisons ; méthodologie générée par code.
 >
+> **Notifications** : chaque démo envoie un email (Gmail) *après* le nœud Respond — le visiteur n'attend jamais la notification, et un échec d'envoi ne casse pas la démo (`onError: continueRegularOutput`). Objet unifié `[Portfolio] 🔔 Démo testée : <nom>`, corps = saisie + réponse tronquées à 1500 caractères. Le formulaire de contact utilise `[Portfolio] Message de <nom>`. Ce préfixe commun permet un filtre Gmail unique.
+>
+> ⚠️ Le libellé de la démo est injecté dans le code du nœud via `json.dumps` : en le concaténant brut, les libellés à apostrophe (« Analyseur d'avis », « Scraper d'URL ») cassaient la chaîne JS et la notification échouait silencieusement.
+>
+> ⚠️ Le scan RGPD cherche de **vrais liens** (`<a href>`), pas les mots dans la page : chercher « mentions légales » dans le texte déclarait conforme tout site qui parle simplement de conformité — y compris ce portfolio, à cause de la description de sa propre démo.
+>
 > Pattern commun : Webhook (POST, CORS ouvert) → [fetch/API externe →] Code(s) déterministes → HTTP Request LLM (response_format json_object, timeout 15-17 s) → Code (parse + validation stricte du contrat, throw si invalide → le front bascule en mock-fallback avec badge) → Respond to Webhook. Principe : tout ce qui peut être calculé par des règles l'est (verdicts RGPD, scores GTM), le LLM ne fait que l'analyse et la rédaction. Prochaine étape : migrer sur le n8n du homelab quand il sera de retour (recréer le credential Mistral, réimporter les workflows, changer les URLs dans .env.local, rebuild).
 >
 > Historique : la démo RAG est devenue une étude de cas statique (`components/demo/rag-showcase.tsx`) et la démo « traducteur d'idée en workflow » a été supprimée.
