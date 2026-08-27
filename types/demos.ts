@@ -154,6 +154,10 @@ export interface ContactRequest {
   message: string;
   /** Profil LinkedIn, facultatif : absent du payload si non renseigné. */
   linkedin?: string;
+  /** Profil déclaré (recruteur, entreprise…), facultatif. */
+  profil?: string;
+  /** Société / organisation, facultatif. */
+  societe?: string;
 }
 
 export interface ContactResponse {

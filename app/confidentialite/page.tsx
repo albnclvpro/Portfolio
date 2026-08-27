@@ -34,9 +34,10 @@ export default function ConfidentialitePage() {
           <li>
             <span>
               <strong>Formulaire de contact</strong> — nom, adresse email,
-              profil LinkedIn (facultatif) et message. Finalité : vous répondre.
-              Base légale : votre consentement, matérialisé par l&apos;envoi du
-              formulaire.
+              message, et facultativement profil LinkedIn, qualité (recruteur,
+              entreprise…) et société. Finalité : vous répondre et comprendre
+              qui me sollicite. Base légale : votre consentement, matérialisé
+              par l&apos;envoi du formulaire.
             </span>
           </li>
           <li>
@@ -52,8 +53,16 @@ export default function ConfidentialitePage() {
           </li>
         </ul>
         <p>
-          Aucune donnée n&apos;est utilisée à des fins de profilage, de
-          publicité ou de revente.
+          Dans les deux cas, un signal technique de provenance est joint : les
+          éventuels paramètres de campagne présents dans l&apos;URL (par exemple
+          « utm_source ») et le nom de domaine du site référent d&apos;où vous
+          arrivez (par exemple « linkedin.com »). Cela m&apos;aide à savoir par
+          quel canal on découvre ce portfolio. Aucun cookie, aucune adresse IP
+          ni identifiant persistant n&apos;est enregistré à cette fin.
+        </p>
+        <p>
+          Aucune donnée n&apos;est utilisée à des fins de profilage publicitaire
+          ou de revente.
         </p>
       </section>
 

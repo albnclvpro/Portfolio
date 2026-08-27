@@ -6,6 +6,7 @@ import type {
   DemoResult,
 } from "@/types/demos";
 import { mockResponses } from "@/lib/mock-responses";
+import { getVisitorSource } from "@/lib/visitor-source";
 
 /**
  * ————————————————————————————————————————————————————————————————
@@ -100,7 +101,12 @@ export async function runDemo<K extends DemoId>(
   }
 
   try {
-    const data = await postJson<DemoContracts[K]["response"]>(url, payload);
+    // _source : provenance de la visite, jointe pour la notification côté n8n.
+    // Le workflow ne l'interprète pas ; il n'atteint jamais le modèle.
+    const data = await postJson<DemoContracts[K]["response"]>(url, {
+      ...payload,
+      _source: getVisitorSource(),
+    });
     return { data, source: "live" };
   } catch {
     return { data: mockResponses[demoId], source: "mock-fallback" };
@@ -120,5 +126,8 @@ export async function sendContact(
     return { ok: true };
   }
 
-  return postJson<ContactResponse>(contactWebhookUrl, payload);
+  return postJson<ContactResponse>(contactWebhookUrl, {
+    ...payload,
+    _source: getVisitorSource(),
+  });
 }

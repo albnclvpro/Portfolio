@@ -17,6 +17,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Reveal from "@/components/reveal";
 import SectionHeading from "@/components/sections/section-heading";
 import { sendContact } from "@/services/n8n";
@@ -42,6 +49,8 @@ export default function Contact() {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [linkedin, setLinkedin] = useState("");
+  const [profil, setProfil] = useState("");
+  const [societe, setSociete] = useState("");
   // Honeypot anti-spam : rempli uniquement par les bots
   const [company, setCompany] = useState("");
 
@@ -57,6 +66,8 @@ export default function Contact() {
         email: email.trim(),
         message: message.trim(),
         ...(linkedin.trim() ? { linkedin: linkedin.trim() } : {}),
+        ...(profil ? { profil } : {}),
+        ...(societe.trim() ? { societe: societe.trim() } : {}),
       });
       setStatus(ok ? "sent" : "error");
     } catch {
@@ -170,6 +181,46 @@ export default function Contact() {
                   autoComplete="url"
                   maxLength={200}
                 />
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="contact-profil">
+                    Vous êtes{" "}
+                    <span className="font-mono text-[11px] text-muted-foreground">
+                      (facultatif)
+                    </span>
+                  </Label>
+                  <Select value={profil} onValueChange={setProfil}>
+                    <SelectTrigger id="contact-profil" className="w-full">
+                      <SelectValue placeholder="Sélectionner…" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="Recruteur">Recruteur</SelectItem>
+                      <SelectItem value="Entreprise">Entreprise</SelectItem>
+                      <SelectItem value="Client freelance">
+                        Client freelance
+                      </SelectItem>
+                      <SelectItem value="Curieux">Simple curieux</SelectItem>
+                      <SelectItem value="Autre">Autre</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="contact-societe">
+                    Société{" "}
+                    <span className="font-mono text-[11px] text-muted-foreground">
+                      (facultatif)
+                    </span>
+                  </Label>
+                  <Input
+                    id="contact-societe"
+                    value={societe}
+                    onChange={(e) => setSociete(e.target.value)}
+                    autoComplete="organization"
+                    maxLength={100}
+                  />
+                </div>
               </div>
 
               <div className="flex flex-col gap-2">
