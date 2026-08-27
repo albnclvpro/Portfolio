@@ -10,7 +10,7 @@
 >   - `rgpd` : fetch → détection déterministe (trackers, CMP, liens légaux) → verdicts et détails calculés par règles (pas par le LLM) → Mistral rédige uniquement les recommandations.
 >   - `gtm` : API publique recherche-entreprises.api.gouv.fr (filtre NAF + effectif 10-499) → scoring déterministe top 5 → Mistral rédige les raisons ; méthodologie générée par code.
 >
-> **Notifications** : chaque démo envoie un email (Gmail) *après* le nœud Respond — le visiteur n'attend jamais la notification, et un échec d'envoi ne casse pas la démo (`onError: continueRegularOutput`). Objet unifié `[Portfolio] 🔔 Démo testée : <nom>`, corps = saisie + réponse tronquées à 1500 caractères. Le formulaire de contact utilise `[Portfolio] Message de <nom>`. Ce préfixe commun permet un filtre Gmail unique.
+> **Notifications** : chaque démo envoie un email (Gmail) *après* le nœud Respond — le visiteur n'attend jamais la notification, et un échec d'envoi ne casse pas la démo (`onError: continueRegularOutput`). Objet unifié `[Portfolio] 🔔 Démo testée : <nom>`. Le corps est mis en forme lisible (pas de JSON brut) : un formateur récursif dans le nœud Notification traduit les clés en libellés FR (dictionnaire `LABELS`) et indente objets/tableaux ; ligne « Provenance » en tête (voir capture de provenance §5). Développé et testé hors ligne (`scratchpad/test_formatter.mjs`) avant déploiement sur les 8 nœuds. Le formulaire de contact utilise `[Portfolio] Message de <nom>`. Ce préfixe commun permet un filtre Gmail unique.
 >
 > ⚠️ Le libellé de la démo est injecté dans le code du nœud via `json.dumps` : en le concaténant brut, les libellés à apostrophe (« Analyseur d'avis », « Scraper d'URL ») cassaient la chaîne JS et la notification échouait silencieusement.
 >
