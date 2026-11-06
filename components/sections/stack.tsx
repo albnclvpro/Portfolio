@@ -34,7 +34,7 @@ export default function Stack() {
   return (
     <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
       <SectionHeading
-        index="04"
+        index="05"
         kicker="stack_methodes"
         title="Outils et méthodes."
         description="Le bon outil pour le bon problème — et des workflows pensés pour durer : versionnés, documentés, monitorés."

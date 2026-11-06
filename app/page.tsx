@@ -5,6 +5,7 @@ import CvOrbital from "@/components/sections/cv-orbital";
 import Stack from "@/components/sections/stack";
 import Contact from "@/components/sections/contact";
 import SectionHeading from "@/components/sections/section-heading";
+import Cases from "@/components/sections/cases";
 import DemoList from "@/components/demo/demo-list";
 import SiteFooter from "@/components/site-footer";
 
@@ -42,7 +43,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="stack" className="scroll-mt-16 border-t border-border bg-surface">
+        <section id="cas" className="scroll-mt-16 border-t border-border bg-surface">
+          <div className="mx-auto w-full max-w-6xl px-6 py-24 sm:py-32">
+            <SectionHeading
+              index="04"
+              kicker="cas_concrets"
+              title="Ce que j'ai construit, et comment ça se passe."
+              description="Sept cas, du service en production à la maquette. Chaque fiche montre le principe en schéma, ce qui reste sous contrôle humain, et son état réel."
+            />
+            <Cases />
+          </div>
+        </section>
+
+        <section id="stack" className="scroll-mt-16 border-t border-border">
           <Stack />
         </section>
 
