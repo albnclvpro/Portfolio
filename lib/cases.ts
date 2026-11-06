@@ -100,20 +100,21 @@ export const cases: CaseStudy[] = [
     title: "Automatiser une petite structure",
     status: "en activité",
     summary:
-      "Je m'occupe du site WordPress d'une association de protection animale, avec l'aide de l'IA. J'ai documenté le site, des gabarits de blocs réutilisables et des procédures pas à pas (actualités, agenda, bandeau d'annonce, photos, référencement), pour que des bénévoles non techniques le fassent vivre.",
-    badges: ["WordPress", "Automatisation", "Documentation", "Association"],
+      "Je préside une association de protection animale et je m'occupe de son site WordPress avec ma mère. Grâce à l'IA, j'ai automatisé une partie des tâches : mises à jour du site (actualités, agenda, bandeau d'annonce) et visuels pour les réseaux sociaux, à partir de nos propres photos et dans la charte de l'association.",
+    badges: ["WordPress", "Automatisation", "Réseaux sociaux", "Association"],
     workflow: flow([
       ["Besoin", "actu, événement"],
       ["Procédure", "pas à pas"],
-      ["Assistant IA", "gabarits"],
-      ["Site", "WordPress"],
+      ["Assistant IA", "site + visuels"],
+      ["Publication", "site, réseaux"],
       ["Relecture", "humaine"],
     ]),
     schemaNote: "Principe de fonctionnement, simplifié.",
     points: [
       "Un site à moyens modestes : offre de base, sans plugin ni code personnalisé",
-      "Des gabarits et des procédures pour que l'équipe reste autonome",
-      "Charte visuelle respectée à chaque publication, reformulation des sources et lien vers l'original",
+      "Des gabarits et des procédures pour que l'équipe bénévole reste autonome",
+      "Sauvegarde de la page avant chaque modification, relecture humaine avant publication",
+      "Visuels d'événements créés à partir des vraies photos de l'association",
     ],
   },
   {
