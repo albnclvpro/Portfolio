@@ -23,6 +23,12 @@ export interface WorkflowEdge {
 export interface WorkflowDefinition {
   nodes: WorkflowNode[];
   edges: WorkflowEdge[];
+  /**
+   * Choisit le côté de sortie des connecteurs selon la position relative des
+   * nœuds (vertical, vers la gauche). Désactivé par défaut : les schémas des
+   * démos gardent leur tracé d'origine.
+   */
+  autoRoute?: boolean;
 }
 
 /**

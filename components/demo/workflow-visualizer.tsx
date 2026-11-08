@@ -62,6 +62,25 @@ function edgePath(from: WorkflowNode, to: WorkflowNode): string {
   return `M ${x1} ${y1} C ${x1 + dx} ${y1}, ${x2 - dx} ${y2}, ${x2} ${y2}`;
 }
 
+/** Tracé selon la position relative : vertical, vers la droite ou vers la gauche. */
+function autoEdgePath(from: WorkflowNode, to: WorkflowNode): string {
+  const cx1 = px(from.x);
+  const cx2 = px(to.x);
+  if (Math.abs(cx2 - cx1) < 8) {
+    const down = to.y > from.y;
+    const y1 = py(from.y) + (down ? NODE_H / 2 : -NODE_H / 2);
+    const y2 = py(to.y) + (down ? -NODE_H / 2 : NODE_H / 2);
+    return `M ${cx1} ${y1} L ${cx2} ${y2}`;
+  }
+  if (cx2 > cx1) return edgePath(from, to);
+  const x1 = cx1 - NODE_W / 2;
+  const y1 = py(from.y);
+  const x2 = cx2 + NODE_W / 2;
+  const y2 = py(to.y);
+  const dx = Math.max(24, (x1 - x2) / 2);
+  return `M ${x1} ${y1} C ${x1 - dx} ${y1}, ${x2 + dx} ${y2}, ${x2} ${y2}`;
+}
+
 interface WorkflowVisualizerProps {
   workflow: WorkflowDefinition;
   status: DemoStatus;
@@ -125,7 +144,7 @@ export default function WorkflowVisualizer({
         return (
           <path
             key={`${edge.from}-${edge.to}`}
-            d={edgePath(from, to)}
+            d={workflow.autoRoute ? autoEdgePath(from, to) : edgePath(from, to)}
             fill="none"
             strokeWidth={1.5}
             className={`transition-colors duration-300 ${
